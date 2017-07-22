@@ -24,27 +24,23 @@ app.get('/health', (req, res) => {
 app.set('ipaddress', config.get('ipaddress'));
 app.set('port', config.get('port'));
 
-const listen = () => {
+const startApp = () => {
   const server = app.listen(app.get('port'), app.get('ipaddress'), (err) => {
     if (err) {
       console.log(err);
+    } else {
+      console.log(`App listening at http://${server.address().address}:${server.address().port}`);
     }
-    const host = server.address().address;
-    const port = server.address().port;
-    console.log('App listening at http://%s:%s', host, port);
   });
 };
 
-const connect = () => {
+const dbConnect = () => {
   var options = {
     useMongoClient: true,
-    promiseLibrary: global.Promise,
   };
   return mongoose.connect(config.get('db.url'), options);
 };
 
-connect()
-  .then(() => {
-    listen();
-  })
+dbConnect()
+  .then(startApp)
   .catch(console.log)

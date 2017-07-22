@@ -24,72 +24,21 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get(`/:${identiyId}`, (req, res) => {
-//   controller
-//     .get(req.params[identiyId])
-//     .then((data) => {
-//       res.json({
-//         status: true,
-//         data,
-//       });
-//     })
-//     .catch((error) => {
-//       res.json({
-//         status: false,
-//         error,
-//       });
-//     });
-// });
-//
-// router.post('/', (req, res) => {
-//   controller
-//     .save(req.body)
-//     .then((data) => {
-//       res.json({
-//         status: true,
-//         data,
-//       });
-//     })
-//     .catch((error) => {
-//       res.json({
-//         status: false,
-//         error,
-//       });
-//     });
-// });
-//
-// router.put(`/:${identiyId}`, (req, res) => {
-//   controller
-//     .update(req.params[identiyId], req.body)
-//     .then((data) => {
-//       res.json({
-//         status: true,
-//         data,
-//       });
-//     })
-//     .catch((error) => {
-//       res.json({
-//         status: false,
-//         error,
-//       });
-//     });
-// });
-//
-// router.delete(`/:${identiyId}`, (req, res) => {
-//   controller
-//     .delete(req.params[identiyId], req.body)
-//     .then((data) => {
-//       res.json({
-//         status: true,
-//         data,
-//       });
-//     })
-//     .catch((error) => {
-//       res.json({
-//         status: false,
-//         error,
-//       });
-//     });
-// });
+router.post('/', (req, res) => {
+  controller
+    .save(req.body)
+    .then((data) => {
+      res.json({
+        status: true,
+        data,
+      });
+    })
+    .catch((error) => {
+      res.json({
+        status: false,
+        error,
+      });
+    });
+});
 
 export default router;

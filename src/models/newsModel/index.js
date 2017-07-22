@@ -7,21 +7,9 @@ const newsSchema = new Schema({
   image: String,
   source: Number,
   status: Boolean,
-  created_at: Date,
-  updated_at: Date,
+  createdAt: Date,
+  updatedAt: Date,
 });
-
-// newsSchema.pre('save', (next) => {
-//   console.log('next', next);
-//   const currentDate = new Date();
-//   this.updated_at = currentDate;
-//
-//   if (!this.created_at) {
-//     this.created_at = currentDate;
-//   }
-//
-//   next();
-// });
 
 const News = mongoose.model('News', newsSchema);
 
