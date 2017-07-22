@@ -18,16 +18,20 @@ export default class NewsController {
     return News.find({}).exec();
   }
 
-  save(data) {
-    const { title, image, source } = data;
-    const news = new News({
-      title,
-      image,
-      source,
-      status: true,
-      createdAt: new Date(),
+  save(body) {
+    const { data } = body;
+    const promises = data.map((item) => {
+      const { title, image, source } = item;
+      const news = new News({
+        title,
+        image,
+        source,
+        status: true,
+        createdAt: new Date(),
+      });
+      return news.save();
     });
-    return news.save();
+    return Promise.all(promises);
   }
 
 }
