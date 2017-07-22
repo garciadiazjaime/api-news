@@ -35,7 +35,7 @@ const startApp = () => {
 };
 
 const dbConnect = () => {
-  var options = {
+  const options = {
     useMongoClient: true,
   };
   return mongoose.connect(config.get('db.url'), options);
@@ -43,4 +43,4 @@ const dbConnect = () => {
 
 dbConnect()
   .then(startApp)
-  .catch(console.log)
+  .catch(console.log);

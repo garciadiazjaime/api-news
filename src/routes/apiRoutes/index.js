@@ -2,7 +2,7 @@ import express from 'express';
 
 import newsRoutes from '../newsRoutes';
 
-const router = express.Router({mergeParams: true});
+const router = express.Router({ mergeParams: true });
 
 router.use('/news', newsRoutes);
 

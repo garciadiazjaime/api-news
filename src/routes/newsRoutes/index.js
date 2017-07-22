@@ -4,12 +4,9 @@ import NewsController from '../../controllers/newsController';
 /*eslint-disable */
 const router = express.Router({mergeParams: true});
 /*eslint-enable */
-const controller = new NewsController();
-const identiyId = 'activityId';
 
 router.get('/', (req, res) => {
-  controller
-    .list(req.params)
+  NewsController.list(req.params)
     .then((data) => {
       res.json({
         status: true,
@@ -25,8 +22,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  controller
-    .save(req.body)
+  NewsController.save(req.body)
     .then((data) => {
       res.json({
         status: true,

@@ -1,14 +1,7 @@
-import _ from 'lodash';
-
 import News from '../../models/newsModel';
 
 export default class NewsController {
-
-  constructor() {
-    this.collectionName = 'news';
-  }
-
-  list(params) {
+  static list(params) {
     const filter = {
       status: true,
     };
@@ -18,7 +11,7 @@ export default class NewsController {
     return News.find({}).exec();
   }
 
-  save(body) {
+  static save(body) {
     const { data } = body;
     const promises = data.map((item) => {
       const { title, image, source } = item;
@@ -33,5 +26,4 @@ export default class NewsController {
     });
     return Promise.all(promises);
   }
-
 }

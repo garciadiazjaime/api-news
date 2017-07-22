@@ -33,7 +33,7 @@ const config = convict({
       default: 'mongodb://localhost:27017/news',
       env: 'DB_URL',
     },
-  }
+  },
 });
 
 // Perform validation
