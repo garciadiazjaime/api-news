@@ -9,7 +9,8 @@
     "test": "npm run lint",
     "unittest": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/**Test.js",
     "lint": "./node_modules/.bin/eslint .",
-    "watch": "./node_modules/nodemon/bin/nodemon.js build/server.js"
+    "watch": "./node_modules/nodemon/bin/nodemon.js build/server.js",
+    "postinstall": "postinstall-build build"
   },
   "repository": {},
   "license": "MIT",
@@ -21,7 +22,8 @@
     "lodash": "^4.17.4",
     "mongoose": "^4.11.3",
     "morgan": "^1.8.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "postinstall-build": "^5.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
