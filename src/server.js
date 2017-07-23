@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import cors from 'cors';
 
 import apiRoutes from './routes/apiRoutes';
 import config from './config';
@@ -11,6 +12,7 @@ mongoose.Promise = global.Promise;
 
 app.set('secureToken', config.get('secureToken'));
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('static'));
