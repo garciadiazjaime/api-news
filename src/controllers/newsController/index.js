@@ -1,7 +1,7 @@
 import News from '../../models/newsModel';
 
 export default class NewsController {
-  static list(params) {
+  static list() {
     const newsSince = new Date();
     newsSince.setDate(newsSince.getHours() - 24);
     return News.find({})
