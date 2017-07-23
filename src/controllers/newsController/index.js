@@ -1,10 +1,10 @@
-import News from '../../models/newsModel';
+import NewsModel from '../../models/newsModel';
 
 export default class NewsController {
   static list() {
     const newsSince = new Date();
     newsSince.setDate(newsSince.getHours() - 24);
-    return News.find({})
+    return NewsModel.find({})
       .where('createdAt')
       .gt(newsSince)
       .exec();
@@ -14,7 +14,7 @@ export default class NewsController {
     const { data } = body;
     const promises = data.map((item) => {
       const { title, image, source } = item;
-      const news = new News({
+      const news = new NewsModel({
         title,
         image,
         source,
