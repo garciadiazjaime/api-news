@@ -15,9 +15,9 @@
   "repository": {},
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.24.1",
     "body-parser": "^1.17.2",
     "convict": "^4.0.0",
+    "cors": "^2.8.4",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.3",
