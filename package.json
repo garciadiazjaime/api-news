@@ -6,7 +6,7 @@
     "start": "node --use_strict start.js",
     "build": "./node_modules/babel-cli/bin/babel.js src -d build",
     "build-watch": "npm run build -- -w",
-    "test": "npm run lint",
+    "test": "npm run lint && npm run unittest",
     "unittest": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/**Test.js",
     "lint": "./node_modules/.bin/eslint .",
     "watch": "./node_modules/nodemon/bin/nodemon.js build/server.js",
