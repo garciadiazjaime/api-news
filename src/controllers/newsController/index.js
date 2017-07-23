@@ -2,13 +2,12 @@ import News from '../../models/newsModel';
 
 export default class NewsController {
   static list(params) {
-    const filter = {
-      status: true,
-    };
-    if (params.sourceId) {
-      filter.sourceId = params.sourceId;
-    }
-    return News.find({}).exec();
+    const newsSince = new Date();
+    newsSince.setDate(newsSince.getHours() - 24);
+    return News.find({})
+      .where('createdAt')
+      .gt(newsSince)
+      .exec();
   }
 
   static save(body) {
@@ -19,8 +18,6 @@ export default class NewsController {
         title,
         image,
         source,
-        status: true,
-        createdAt: new Date(),
       });
       return news.save();
     });
