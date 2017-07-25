@@ -7,6 +7,7 @@ export default class NewsController {
     return NewsModel.find({})
       .where('createdAt')
       .gt(newsSince)
+      .sort('-createdAt')
       .exec();
   }
 
