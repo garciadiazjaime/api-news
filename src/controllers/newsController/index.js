@@ -14,10 +14,11 @@ export default class NewsController {
   static save(body) {
     const { data } = body;
     const promises = data.map((item) => {
-      const { title, image, source } = item;
+      const { title, image, link, source } = item;
       const news = new NewsModel({
         title,
         image,
+        link,
         source,
       });
       return news.save();
