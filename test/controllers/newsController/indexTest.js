@@ -16,7 +16,9 @@ describe('NewsController', () => {
       sinon.stub(NewsModel, 'find').callsFake(() => ({
         where: () => ({
           gt: () => ({
-            exec: () => Promise.resolve(),
+            sort: () => ({
+              exec: () => Promise.resolve(),
+            }),
           }),
         }),
       }));
@@ -36,7 +38,9 @@ describe('NewsController', () => {
       sinon.stub(NewsModel, 'find').callsFake(() => ({
         where: () => ({
           gt: () => ({
-            exec: () => Promise.reject(),
+            sort: () => ({
+              exec: () => Promise.reject(),
+            }),
           }),
         }),
       }));
