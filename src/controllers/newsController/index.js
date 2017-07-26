@@ -15,13 +15,20 @@ export default class NewsController {
     const { data } = body;
     const promises = data.map((item) => {
       const { title, image, link, source } = item;
-      const news = new NewsModel({
-        title,
-        image,
-        link,
-        source,
-      });
-      return news.save();
+      return NewsModel.count({ title })
+        .exec()
+        .then((count) => {
+          if (!count) {
+            const news = new NewsModel({
+              title,
+              image,
+              link,
+              source,
+            });
+            return news.save();
+          }
+          return null;
+        });
     });
     return Promise.all(promises);
   }
