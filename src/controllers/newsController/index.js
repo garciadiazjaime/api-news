@@ -15,7 +15,7 @@ export default class NewsController {
     const { data } = body;
     const promises = data.map((item) => {
       const { title, image, link, source } = item;
-      return NewsModel.count({ title })
+      return NewsModel.count({ $or: [{ title }, { link }] })
         .exec()
         .then((count) => {
           if (!count) {
