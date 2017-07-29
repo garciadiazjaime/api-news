@@ -10,7 +10,8 @@
     "unittest": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/**Test.js",
     "lint": "./node_modules/.bin/eslint .",
     "watch": "./node_modules/nodemon/bin/nodemon.js build/server.js",
-    "postinstall": "postinstall-build build"
+    "postinstall": "postinstall-build build",
+    "deploy": "git checkout master && git pull origin develop && git push upstream HEAD"
   },
   "repository": {},
   "license": "MIT",
