@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "main": "start.js",
   "scripts": {
-    "start": "node --use_strict start.js",
+    "start": "node build/server.js",
     "build": "./node_modules/babel-cli/bin/babel.js src -d build",
     "build-watch": "npm run build -- -w",
     "test": "npm run lint && npm run unittest",
     "unittest": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/**Test.js",
     "lint": "./node_modules/.bin/eslint .",
     "watch": "./node_modules/nodemon/bin/nodemon.js build/server.js",
-    "postinstall": "postinstall-build build",
-    "deploy": "git checkout master && git pull origin develop && git push upstream HEAD"
+    "docker:build": "yarn build && docker build -t garciadiazjaime/api-news .",
+    "docker:run": "docker run -d -p 49195:3030 --link mongo -e='DB_URL=mongodb://mongo/news' --name=api-news garciadiazjaime/api-news",
+    "docker:push": "docker push garciadiazjaime/api-news",
+    "docker:pull": "docker pull garciadiazjaime/api-news"
   },
   "repository": {},
   "license": "MIT",
@@ -22,9 +24,7 @@
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.3",
-    "morgan": "^1.8.2",
-    "nodemon": "^1.11.0",
-    "postinstall-build": "^5.0.1"
+    "morgan": "^1.8.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -39,6 +39,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
     "sinon": "^2.3.8"
   },
   "babel": {

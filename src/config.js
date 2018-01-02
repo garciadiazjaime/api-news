@@ -11,13 +11,13 @@ const config = convict({
   ipaddress: {
     doc: 'The IP address to bind.',
     format: 'ipaddress',
-    default: '127.0.0.1',
+    default: '0.0.0.0',
     env: 'NODE_IP',
   },
   port: {
     doc: 'The port to bind.',
     format: 'port',
-    default: 3000,
+    default: 3030,
     env: 'NODE_PORT',
   },
   secureToken: {
