@@ -1,6 +1,6 @@
 {
   "name": "mint-api-news",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/routes/newsRoutes/index.js",
   "scripts": {
     "start": "node dist/server.js",

@@ -1,4 +1,7 @@
+import mongoose from 'mongoose';
 import NewsModel from '../../models/newsModel';
+
+mongoose.Promise = global.Promise;
 
 export default class NewsController {
   static list() {

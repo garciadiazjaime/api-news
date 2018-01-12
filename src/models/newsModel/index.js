@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
-
-const newsSchema = new Schema({
+const NewsSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
   image: String,
   description: [],
@@ -13,6 +11,6 @@ const newsSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const News = mongoose.model('News', newsSchema);
+const NewsModel = mongoose.model('news', NewsSchema);
 
-module.exports = News;
+module.exports = NewsModel;
