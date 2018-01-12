@@ -14,7 +14,7 @@
     "docker:run": "docker run -d -p 49195:3030 --link mongo -e='DB_URL=mongodb://mongo/news' --name=api-news garciadiazjaime/api-news",
     "docker:push": "docker push garciadiazjaime/api-news",
     "docker:pull": "docker pull garciadiazjaime/api-news",
-    "postinstall": "npm run buid"
+    "postinstall": "npm run-script build"
   },
   "repository": {},
   "license": "MIT",
