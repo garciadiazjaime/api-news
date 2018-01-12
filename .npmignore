@@ -5,7 +5,9 @@ src/
 test
 .dockerignore
 .eslintignore
+.eslintrc
 .gitignore
 .nvmrc
 .travis.yml
 Dockerfile
+yarn.lock
