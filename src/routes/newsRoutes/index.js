@@ -5,7 +5,7 @@ import NewsController from '../../controllers/newsController';
 const router = express.Router({mergeParams: true});
 /*eslint-enable */
 
-router.get('/', (req, res) => {
+router.get('/news', (req, res) => {
   NewsController.list(req.params)
     .then((data) => {
       res.json({
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/news', (req, res) => {
   NewsController.save(req.body)
     .then((data) => {
       res.json({
