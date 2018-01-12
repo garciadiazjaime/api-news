@@ -1,5 +1,5 @@
 {
-  "name": "api-news",
+  "name": "mint-api-news",
   "version": "1.0.0",
   "main": "dist/routes.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "docker:build": "yarn dist && docker dist -t garciadiazjaime/api-news .",
     "docker:run": "docker run -d -p 49195:3030 --link mongo -e='DB_URL=mongodb://mongo/news' --name=api-news garciadiazjaime/api-news",
     "docker:push": "docker push garciadiazjaime/api-news",
-    "docker:pull": "docker pull garciadiazjaime/api-news"
+    "docker:pull": "docker pull garciadiazjaime/api-news",
+    "postinstall": "npm run buid"
   },
   "repository": {},
   "license": "MIT",
