@@ -1,5 +1,8 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import NewsController from '../../controllers/newsController';
+
+mongoose.Promise = global.Promise;
 
 /*eslint-disable */
 const router = express.Router({mergeParams: true});
