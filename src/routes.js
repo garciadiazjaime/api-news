@@ -1,9 +1,7 @@
 import express from 'express';
-import NewsController from '../../controllers/newsController';
+import NewsController from './controllers/newsController';
 
-/*eslint-disable */
-const router = express.Router({mergeParams: true});
-/*eslint-enable */
+const router = express.Router({ mergeParams: true });
 
 router.get('/news', (req, res) => {
   NewsController.list(req.params)

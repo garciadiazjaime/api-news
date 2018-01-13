@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import newsRoutes from './routes/newsRoutes';
+import routes from './routes';
 import config from './config';
 
 const app = express();
@@ -15,8 +15,8 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('static'));
-app.use('/api', newsRoutes);
+
+app.use('/', routes);
 
 app.get('/health', (req, res) => {
   res.writeHead(200);
