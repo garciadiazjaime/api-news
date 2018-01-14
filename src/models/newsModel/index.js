@@ -2,11 +2,10 @@ import mongoose from 'mongoose';
 
 const NewsSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
-  image: String,
   description: [],
+  image: String,
+  url: { type: String, required: true },
   source: { type: String, required: true },
-  link: { type: String, required: true },
-  status: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

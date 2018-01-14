@@ -1,38 +1,32 @@
-import express from 'express';
-import NewsController from './controllers/newsController';
+import express from 'express'
+import mongoose from 'mongoose'
+import graphqlHTTP from 'express-graphql'
 
-const router = express.Router({ mergeParams: true });
+import newsSchema from './graphql/schema/newsSchema'
+import NewsModel from './models/newsModel'
 
-router.get('/news', (req, res) => {
-  NewsController.list(req.params)
-    .then((data) => {
-      res.json({
-        status: true,
-        data,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        status: false,
-        error,
-      });
-    });
-});
+mongoose.Promise = global.Promise
 
-router.post('/news', (req, res) => {
-  NewsController.save(req.body)
-    .then((data) => {
-      res.json({
-        status: true,
-        data,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        status: false,
-        error,
-      });
-    });
-});
+const router = express.Router()
 
-export default router;
+router.get('/news', graphqlHTTP(() => ({
+  schema: newsSchema
+})))
+
+// router.post('/news', (req, res) => {
+//   NewsController.save(req.body)
+//     .then((data) => {
+//       res.json({
+//         status: true,
+//         data,
+//       })
+//     })
+//     .catch((error) => {
+//       res.json({
+//         status: false,
+//         error,
+//       })
+//     })
+// })
+
+export default router
