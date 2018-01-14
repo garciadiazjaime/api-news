@@ -1,6 +1,6 @@
 {
   "name": "mint-api-news",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
