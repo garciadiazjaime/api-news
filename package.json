@@ -1,13 +1,13 @@
 {
   "name": "mint-api-news",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "./dist/routes.js",
   "scripts": {
     "start": "node dist/server.js",
     "dev": "./node_modules/nodemon/bin/nodemon.js dist/server.js",
     "build": "./node_modules/babel-cli/bin/babel.js src -d dist",
     "build-watch": "npm run build -- -w",
-    "clean": "rm -rf ./dist",
+    "reset": "rm -rf ./dist",
     "test": "npm run lint && npm run unittest",
     "unittest": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/**Test.js",
     "lint": "./node_modules/.bin/eslint .",
