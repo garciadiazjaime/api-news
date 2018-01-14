@@ -8,7 +8,7 @@ const config = convict({
     default: 'development',
     env: 'NODE_ENV',
   },
-  ipaddress: {
+  ip: {
     doc: 'The IP address to bind.',
     format: 'ipaddress',
     default: '0.0.0.0',

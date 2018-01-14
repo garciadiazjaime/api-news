@@ -1,48 +1,28 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import morgan from 'morgan'
 import bodyParser from 'body-parser';
-import morgan from 'morgan';
-import cors from 'cors';
 
-import routes from './routes';
 import config from './config';
+import openDatabase from './util/openDatabase'
+import routes from './routes';
 
+const props = {
+  ip: config.get('ip'),
+  port: config.get('port'),
+  dbUrl: config.get('db.url')
+}
 const app = express();
-mongoose.Promise = global.Promise;
 
-app.set('secureToken', config.get('secureToken'));
-app.use(morgan('dev'));
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('tiny'))
 
-app.use('/', routes);
+const startApp = confg =>
+  app.listen(confg.port, confg.ip, () => console.log(`Express Running ${confg.ip}:${confg.port}`))
 
-app.get('/health', (req, res) => {
-  res.writeHead(200);
-  res.end();
-});
-
-app.set('ipaddress', config.get('ipaddress'));
-app.set('port', config.get('port'));
-
-const startApp = () => {
-  const server = app.listen(app.get('port'), app.get('ipaddress'), (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`App listening at http://${server.address().address}:${server.address().port}`);
-    }
-  });
-};
-
-const dbConnect = () => {
-  const options = {
-    useMongoClient: true,
-  };
-  return mongoose.connect(config.get('db.url'), options);
-};
-
-dbConnect()
-  .then(startApp)
-  .catch(console.log);
+openDatabase(props.dbUrl)
+  .then(() => {
+    app.use('/', routes)
+    startApp(props)
+  })
+  .catch(console.log)
