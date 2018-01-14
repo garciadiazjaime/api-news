@@ -10,6 +10,6 @@ const NewsSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const NewsModel = mongoose.model('news', NewsSchema);
+const NewsModel = mongoose.model('event', NewsSchema);
 
 export default NewsModel;

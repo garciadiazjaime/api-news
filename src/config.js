@@ -30,7 +30,7 @@ const config = convict({
     url: {
       doc: 'Database hostname',
       format: String,
-      default: 'mongodb://localhost:27017/news',
+      default: 'mongodb://localhost:27017/events',
       env: 'DB_URL',
     },
   },

@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise
 
 const router = express.Router()
 
-router.get('/news', graphqlHTTP(() => ({
+router.get('/events', graphqlHTTP(() => ({
   schema: newsSchema
 })))
 
