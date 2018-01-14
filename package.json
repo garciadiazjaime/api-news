@@ -1,42 +1,29 @@
 {
   "name": "mint-api-news",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
-    "dev": "nodemon ./dist/server.js",
-    "start": "node ./dist/server.js",
-    "test": "npm run lint && npm run unittest",
-    "unittest": "mocha --compilers js:babel-core/register test/**/**Test.js",
-    "lint": "eslint .",
-    "docker:build": "yarn build && docker build -t garciadiazjaime/api-news .",
-    "docker:run": "docker run -d -p 49195:3030 --link mongo -e='DB_URL=mongodb://mongo/news' --name=api-news garciadiazjaime/api-news",
-    "docker:push": "docker push garciadiazjaime/api-news",
-    "docker:pull": "docker pull garciadiazjaime/api-news"
+    "dev": "nodemon dist/server",
+    "start": "node ./dist/server",
+    "docker:build": "yarn build && docker build -t garciadiazjaime/api-events .",
+    "docker:run": "docker run -d -p 49330:3030 --name events garciadiazjaime/api-events",
+    "docker:push": "docker push garciadiazjaime/api-events",
+    "docker:pull": "docker pull garciadiazjaime/api-events"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "convict": "^4.0.0",
-    "express": "^4.15.3",
+    "body-parser": "^1.18.2",
+    "convict": "^4.0.2",
+    "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "graphql": "^0.12.3",
-    "mongoose": "^4.11.3",
-    "morgan": "^1.8.2"
+    "mongoose": "^5.0.0-rc1",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "chai": "^4.1.0",
-    "chai-as-promised": "^7.1.1",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb": "^15.0.2",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.1.0",
-    "mocha": "^3.4.2",
-    "nodemon": "^1.11.0",
-    "sinon": "^2.3.8"
+    "nodemon": "^1.14.7"
   }
 }

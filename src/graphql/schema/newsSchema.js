@@ -33,7 +33,7 @@ const newsType = new GraphQLObjectType({
     },
     createdAt: {
       type: GraphQLString,
-      description: 'news source',
+      description: 'news created at',
     }
   }),
 });
