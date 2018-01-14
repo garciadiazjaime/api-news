@@ -5,7 +5,7 @@ import {
   GraphQLList,
 } from 'graphql/type';
 
-import NewsModel from '../../models/newsModel';
+import NewsModel from '../../model/newsModel';
 
 const newsType = new GraphQLObjectType({
   name: 'news',

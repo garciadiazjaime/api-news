@@ -12,4 +12,4 @@ const NewsSchema = new mongoose.Schema({
 
 const NewsModel = mongoose.model('news', NewsSchema);
 
-export default EventModel;
+export default NewsModel;

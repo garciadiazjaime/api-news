@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import graphqlHTTP from 'express-graphql'
 
 import newsSchema from './graphql/schema/newsSchema'
-import NewsModel from './models/newsModel'
+// import NewsModel from './models/newsModel'
 
 mongoose.Promise = global.Promise
 
