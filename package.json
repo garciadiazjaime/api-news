@@ -1,16 +1,16 @@
 {
   "name": "mint-api-news",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
     "dev": "nodemon dist/server",
     "start": "node ./dist/server",
-    "docker:build": "yarn build && docker build -t garciadiazjaime/api-events .",
-    "docker:run": "docker run -d -p 49330:3030 --name events garciadiazjaime/api-events",
-    "docker:push": "docker push garciadiazjaime/api-events",
-    "docker:pull": "docker pull garciadiazjaime/api-events"
+    "docker:build": "yarn build && docker build -t garciadiazjaime/api-news .",
+    "docker:run": "docker run -d -p 49330:3030 --name news garciadiazjaime/api-news",
+    "docker:push": "docker push garciadiazjaime/api-news",
+    "docker:pull": "docker pull garciadiazjaime/api-news"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
