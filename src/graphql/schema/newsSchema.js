@@ -5,7 +5,7 @@ import {
   GraphQLList,
 } from 'graphql/type';
 
-import newsMongo from '../../models/newsModel';
+import NewsModel from '../../models/newsModel';
 
 const newsType = new GraphQLObjectType({
   name: 'news',
@@ -53,7 +53,7 @@ const newschema = new GraphQLSchema({
         resolve: (root, { title }) => {
           const foundnews = new Promise((resolve, reject) => {
             const query = title ? { title } : {};
-            newsMongo.find(query, (error, news) => (error ? reject(error) : resolve(news))).sort('-createdAt');
+            NewsModel.find(query, (error, news) => (error ? reject(error) : resolve(news))).sort('-createdAt');
           });
           return foundnews;
         },
