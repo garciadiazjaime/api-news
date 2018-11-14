@@ -11,6 +11,10 @@ const newsType = new GraphQLObjectType({
   name: 'news',
   description: 'news news',
   fields: () => ({
+    _id: {
+      type: GraphQLString,
+      description: 'news id',
+    },
     title: {
       type: GraphQLString,
       description: 'news title',
