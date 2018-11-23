@@ -5,13 +5,13 @@ import {
   GraphQLList,
 } from 'graphql/type';
 
-const moment = require('moment')
-
 import NewsModel from '../../model/newsModel';
+
+const moment = require('moment');
 
 const newsType = new GraphQLObjectType({
   name: 'news',
-  description: 'news news',
+  description: 'news',
   fields: () => ({
     _id: {
       type: GraphQLString,
@@ -40,7 +40,7 @@ const newsType = new GraphQLObjectType({
     createdAt: {
       type: GraphQLString,
       description: 'news created at',
-    }
+    },
   }),
 });
 
@@ -61,28 +61,28 @@ const newschema = new GraphQLSchema({
           },
           limit: {
             name: 'limit',
-            type: GraphQLString
-          }
+            type: GraphQLString,
+          },
         },
         resolve: (root, { title, createdAt = new Date(), limit = 50 }) => {
           const newsFound = new Promise((resolve, reject) => {
-            const query = title ? { title } : {};
+            const query = {};
             if (title) {
               query.title = title;
             }
             if (createdAt) {
               query.createdAt = {
-                "$gte": moment(createdAt).startOf('day'),
-                "$lt": moment(createdAt).endOf('day')
-              }
+                $gte: moment(createdAt).startOf('day'),
+                $lt: moment(createdAt).endOf('day'),
+              };
             }
 
             NewsModel
               .find(query, (error, news) => {
                 if (error) {
-                  return reject(error)
+                  return reject(error);
                 }
-                return resolve(news)
+                return resolve(news);
               })
               .sort('-createdAt')
               .limit(limit);

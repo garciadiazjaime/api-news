@@ -1,4 +1,4 @@
-import NewsModel from '../../models/newsModel';
+import NewsModel from '../../model/newsModel';
 
 export default class NewsController {
   static list() {
@@ -14,7 +14,9 @@ export default class NewsController {
   static save(body) {
     const { data } = body;
     const promises = data.map((item) => {
-      const { title, image, link, source, description } = item;
+      const {
+        title, image, link, source, description,
+      } = item;
       return NewsModel.count({ $or: [{ title }, { link }] })
         .exec()
         .then((count) => {
