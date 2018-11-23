@@ -15,22 +15,21 @@ router.get('/news', graphqlHTTP(() => ({
 
 router.post('/news', (req, res) => {
   const { data } = req.body
+
   const promises = data.map(item => {
-    console.log('item', item)
-    return new NewsModel(item).save()
+    return NewsModel.count({
+      source: item.source,
+      url: item.url
+    })
+    .then(count => !count && new NewsModel(item).save())
   })
+
   Promise.all(promises)
     .then(results => {
-      res.send({
-        status: true,
-        data: results.length
-      })
+      res.send(results)
     })
     .catch(error => {
-      res.send({
-        status: false,
-        error
-      })
+      res.send(error).status(404)
     })
 })
 
