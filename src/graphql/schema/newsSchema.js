@@ -3,6 +3,7 @@ import {
   GraphQLSchema,
   GraphQLString,
   GraphQLList,
+  GraphQLInt,
 } from 'graphql/type';
 
 import NewsModel from '../../model/newsModel';
@@ -61,7 +62,7 @@ const newschema = new GraphQLSchema({
           },
           limit: {
             name: 'limit',
-            type: GraphQLString,
+            type: GraphQLInt,
           },
         },
         resolve: (root, { title, createdAt = new Date(), limit = 50 }) => {

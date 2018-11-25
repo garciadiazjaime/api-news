@@ -56,18 +56,27 @@ const analysisSchema = new GraphQLSchema({
           },
           limit: {
             name: 'limit',
+            type: GraphQLInt,
+          },
+          state: {
+            name: 'state',
             type: GraphQLString,
           },
         },
-        resolve: (root, { createdAt = new Date(), limit = 50 }) => {
+        resolve: (root, { createdAt, limit = 50, state }) => {
           const analysisFound = new Promise((resolve, reject) => {
             const query = {};
 
             if (createdAt) {
+              const date = createdAt ? new Date(createdAt) : new Date();
               query.createdAt = {
-                $gte: moment(createdAt).startOf('day'),
-                $lt: moment(createdAt).endOf('day'),
+                $gte: moment(date).startOf('day'),
+                $lt: moment(date).endOf('day'),
               };
+            }
+
+            if (state === 'without-google-search') {
+              query.googleSearched = false;
             }
 
             AnalysisModel

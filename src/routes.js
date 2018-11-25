@@ -7,6 +7,7 @@ import NewsModel from './model/newsModel';
 
 const AnalysisSchema = require('./graphql/schema/analysisSchema');
 const AnalysisModel = require('./model/analysisModel');
+const GoogleSearchModel = require('./model/google-search-model');
 
 mongoose.Promise = global.Promise;
 
@@ -50,6 +51,36 @@ router.post('/analysis', (req, res) => {
   Promise.all(promises)
     .then((results) => {
       res.send(results);
+    })
+    .catch((error) => {
+      res.send(error).status(404);
+    });
+});
+
+router.post('/google-results', (req, res) => {
+  const { analysisId, data = [] } = req.body;
+  const promises = data.map(item => GoogleSearchModel
+    .countDocuments({
+      analysisId,
+    })
+    .then(count => !count && new GoogleSearchModel(
+      Object.assign({}, item, { analysisId }),
+    ).save()));
+
+  Promise.all(promises)
+    .then((results) => {
+      AnalysisModel
+        .findOneAndUpdate({
+          _id: mongoose.Types.ObjectId(analysisId),
+        }, {
+          $set: { googleSearched: true },
+        })
+        .then(() => {
+          res.send(results);
+        })
+        .catch((error) => {
+          res.send(error).status(404);
+        });
     })
     .catch((error) => {
       res.send(error).status(404);
