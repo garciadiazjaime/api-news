@@ -10,6 +10,8 @@ WORKDIR /usr/src/app
 
 ADD . /usr/src/app
 
+RUN npm run build
+
 EXPOSE 3030
 
-CMD [ "node", "./build/server.js" ]
+CMD [ "node", "./dist/server.js" ]
