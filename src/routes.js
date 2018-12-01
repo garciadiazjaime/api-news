@@ -5,15 +5,17 @@ import graphqlHTTP from 'express-graphql';
 import newsSchema from './graphql/schema/newsSchema';
 import NewsModel from './model/newsModel';
 
+const cors = require('cors');
 const AnalysisSchema = require('./graphql/schema/analysisSchema');
 const AnalysisModel = require('./model/analysisModel');
 const GoogleSearchModel = require('./model/google-search-model');
+
 
 mongoose.Promise = global.Promise;
 
 const router = express.Router();
 
-router.get('/news', graphqlHTTP(() => ({
+router.get('/news', cors(), graphqlHTTP(() => ({
   schema: newsSchema,
 })));
 
