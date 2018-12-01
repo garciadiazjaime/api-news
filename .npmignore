@@ -1,0 +1,13 @@
+node_modules
+*.DS_Store
+npm-debug.log
+src/
+test
+.dockerignore
+.eslintignore
+.eslintrc
+.gitignore
+.nvmrc
+.travis.yml
+Dockerfile
+yarn.lock
