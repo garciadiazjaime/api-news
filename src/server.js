@@ -1,10 +1,10 @@
-import express from 'express';
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-import config from './config';
-import openDatabase from './util/openDatabase';
-import routes from './routes';
+const config = require('./config');
+const openDatabase = require('./util/openDatabase');
+const routes = require('./routes');
 
 const props = {
   ip: config.get('ip'),

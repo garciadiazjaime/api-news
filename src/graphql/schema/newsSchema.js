@@ -1,14 +1,14 @@
-import {
+const {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
   GraphQLList,
   GraphQLInt,
-} from 'graphql/type';
-
-import NewsModel from '../../model/newsModel';
+} = require('graphql/type');
 
 const moment = require('moment');
+const NewsModel = require('../../model/newsModel');
+
 
 const newsType = new GraphQLObjectType({
   name: 'news',
@@ -52,8 +52,8 @@ const newschema = new GraphQLSchema({
       news: {
         type: new GraphQLList(newsType),
         args: {
-          title: {
-            name: 'title',
+          id: {
+            name: 'news ID',
             type: GraphQLString,
           },
           createdAt: {
@@ -65,16 +65,17 @@ const newschema = new GraphQLSchema({
             type: GraphQLInt,
           },
         },
-        resolve: (root, { title, createdAt = new Date(), limit = 50 }) => {
+        resolve: (root, { id, createdAt = new Date(), limit = 50 }) => {
           const newsFound = new Promise((resolve, reject) => {
             const query = {};
-            if (title) {
-              query.title = title;
+            if (id) {
+              query._id = id;
             }
+
             if (createdAt) {
               query.createdAt = {
-                $gte: moment(createdAt).startOf('day'),
-                $lt: moment(createdAt).endOf('day'),
+                $gte: new Date(moment(createdAt).startOf('day').toJSON()),
+                $lt: new Date(moment(createdAt).endOf('day').toJSON()),
               };
             }
 
@@ -96,4 +97,4 @@ const newschema = new GraphQLSchema({
   }),
 });
 
-export default newschema;
+module.exports = newschema;

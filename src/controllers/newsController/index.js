@@ -1,6 +1,6 @@
-import NewsModel from '../../model/newsModel';
+const NewsModel = require('../../model/newsModel');
 
-export default class NewsController {
+class NewsController {
   static list() {
     const newsSince = new Date();
     newsSince.setDate(newsSince.getHours() - 24);
@@ -36,3 +36,5 @@ export default class NewsController {
     return Promise.all(promises);
   }
 }
+
+module.exports = NewsController

@@ -4,7 +4,6 @@
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d dist",
     "dev": "nodemon dist/server",
     "start": "node ./dist/server",
     "docker:build": "npm run build && docker build -t garciadiazjaime/api-news .",

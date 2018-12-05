@@ -1,11 +1,11 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import graphqlHTTP from 'express-graphql';
-
-import newsSchema from './graphql/schema/newsSchema';
-import NewsModel from './model/newsModel';
+const express = require('express');
+const mongoose = require('mongoose');
+const graphqlHTTP = require('express-graphql');
 
 const cors = require('cors');
+const newsSchema = require('./graphql/schema/newsSchema');
+const NewsModel = require('./model/newsModel');
+
 const AnalysisSchema = require('./graphql/schema/analysisSchema');
 const AnalysisModel = require('./model/analysisModel');
 const GoogleSearchModel = require('./model/google-search-model');
@@ -89,4 +89,4 @@ router.post('/google-results', (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;
