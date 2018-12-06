@@ -9,8 +9,10 @@ const {
 const moment = require('moment');
 const NewsModel = require('../../model/newsModel');
 const AnalysisModel = require('../../model/analysisModel');
-const GoogleSearchModel = require('../../model/google-search-model');
+const GoogleResultsModel = require('../../model/google-results-model');
 
+const { AnalysisType } = require('./analysisSchema');
+const { GoogleResultsType } = require('./google-results-schema');
 
 const newsType = new GraphQLObjectType({
   name: 'news',
@@ -44,6 +46,12 @@ const newsType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'news created at',
     },
+    analysis: {
+      type: AnalysisType,
+    },
+    googleResults: {
+      type: new GraphQLList(GoogleResultsType),
+    },
   }),
 });
 
@@ -76,17 +84,27 @@ const newschema = new GraphQLSchema({
             };
           }
 
+
           if (newsId) {
             query._id = newsId;
 
-            const analysis = await AnalysisModel.find({
+            const { _doc: news } = await NewsModel.findOne(query);
+
+            const analysis = await AnalysisModel.findOne({
               newsId,
             });
 
-            const googleSearchs = await GoogleSearchModel.find({
+            const googleResults = await GoogleResultsModel.find({
               newsId,
             });
-            console.log('analysis', analysis);
+
+            const response = [{
+              ...news,
+              analysis,
+              googleResults,
+            }];
+
+            return response;
           }
 
           const newsFound = await NewsModel

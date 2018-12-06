@@ -7,8 +7,9 @@ const newsSchema = require('./graphql/schema/newsSchema');
 const NewsModel = require('./model/newsModel');
 
 const AnalysisSchema = require('./graphql/schema/analysisSchema');
+const GoogleResultsSchema = require('./graphql/schema/google-results-schema');
 const AnalysisModel = require('./model/analysisModel');
-const GoogleSearchModel = require('./model/google-search-model');
+const GoogleSearchModel = require('./model/google-results-model');
 
 
 mongoose.Promise = global.Promise;
@@ -58,6 +59,10 @@ router.post('/analysis', (req, res) => {
       res.send(error).status(404);
     });
 });
+
+router.get('/google-results', graphqlHTTP(() => ({
+  schema: GoogleResultsSchema,
+})));
 
 router.post('/google-results', (req, res) => {
   const { analysisId, newsId, data = [] } = req.body;

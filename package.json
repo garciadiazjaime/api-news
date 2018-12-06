@@ -4,6 +4,7 @@
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
+    "dev": "npx nodemon ./src/server",
     "start": "node ./src/server",
     "docker:build": "docker build -t garciadiazjaime/api-news .",
     "docker:run": "docker run -d -p 49330:3030 --name news garciadiazjaime/api-news",
@@ -30,6 +31,6 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "nodemon": "^1.14.7"
+    "nodemon": "^1.18.7"
   }
 }

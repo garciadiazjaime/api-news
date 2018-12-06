@@ -3,38 +3,35 @@ const {
   GraphQLSchema,
   GraphQLString,
   GraphQLList,
-  GraphQLFloat,
   GraphQLInt,
   GraphQLID,
 } = require('graphql/type');
 
 const moment = require('moment');
 
-const AnalysisModel = require('../../model/analysisModel');
+const GoogleResultsModel = require('../../model/google-results-model');
 
-const WordsFrequency = new GraphQLObjectType({
-  name: 'wordsFrequency',
-  fields: {
-    word: { type: GraphQLString },
-    frequency: { type: GraphQLInt },
-  },
-});
-
-const AnalysisType = new GraphQLObjectType({
-  name: 'Analysis',
+const GoogleResultsType = new GraphQLObjectType({
+  name: 'GoogleResults',
   fields: () => ({
     _id: {
       type: GraphQLID,
       description: 'analysis id',
     },
-    wordsFrequency: {
-      type: new GraphQLList(WordsFrequency),
+    analysisId: {
+      type: GraphQLString,
     },
     newsId: {
-      type: GraphQLID,
+      type: GraphQLString,
     },
-    sentiment: {
-      type: GraphQLFloat,
+    title: {
+      type: GraphQLString,
+    },
+    description: {
+      type: GraphQLString,
+    },
+    link: {
+      type: GraphQLString,
     },
     createdAt: {
       type: GraphQLString,
@@ -42,12 +39,12 @@ const AnalysisType = new GraphQLObjectType({
   }),
 });
 
-const analysisSchema = new GraphQLSchema({
+const GoogleResultsSchema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-      analysis: {
-        type: new GraphQLList(AnalysisType),
+      googleResults: {
+        type: new GraphQLList(GoogleResultsType),
         args: {
           createdAt: {
             name: 'createdAt',
@@ -57,14 +54,18 @@ const analysisSchema = new GraphQLSchema({
             name: 'limit',
             type: GraphQLInt,
           },
-          state: {
-            name: 'state',
+          newsId: {
+            name: 'newsId',
             type: GraphQLString,
           },
         },
-        resolve: (root, { createdAt, limit = 50, state }) => {
+        resolve: (root, { createdAt, limit = 50, newsId }) => {
           const analysisFound = new Promise((resolve, reject) => {
             const query = {};
+
+            if (newsId) {
+              query.newsId = newsId;
+            }
 
             if (createdAt) {
               const date = createdAt ? new Date(createdAt) : new Date();
@@ -74,11 +75,7 @@ const analysisSchema = new GraphQLSchema({
               };
             }
 
-            if (state === 'without-google-search') {
-              query.googleSearched = false;
-            }
-
-            AnalysisModel
+            GoogleResultsModel
               .find(query, (error, analysis) => {
                 if (error) {
                   return reject(error);
@@ -96,5 +93,5 @@ const analysisSchema = new GraphQLSchema({
   }),
 });
 
-module.exports = analysisSchema;
-module.exports.AnalysisType = AnalysisType;
+module.exports = GoogleResultsSchema;
+module.exports.GoogleResultsType = GoogleResultsType;
