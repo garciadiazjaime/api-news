@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const GoogleSearchSchema = new mongoose.Schema({
   analysisId: { type: String, required: true },
+  newsId: { type: String, required: true },
   title: String,
   description: String,
   link: { type: String, required: true },

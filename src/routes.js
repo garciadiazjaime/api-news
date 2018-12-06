@@ -60,13 +60,14 @@ router.post('/analysis', (req, res) => {
 });
 
 router.post('/google-results', (req, res) => {
-  const { analysisId, data = [] } = req.body;
+  const { analysisId, newsId, data = [] } = req.body;
   const promises = data.map(item => GoogleSearchModel
     .countDocuments({
       analysisId,
+      newsId,
     })
     .then(count => !count && new GoogleSearchModel(
-      Object.assign({}, item, { analysisId }),
+      Object.assign({}, item, { analysisId, newsId }),
     ).save()));
 
   Promise.all(promises)

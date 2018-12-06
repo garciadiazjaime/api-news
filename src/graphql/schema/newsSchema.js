@@ -8,6 +8,8 @@ const {
 
 const moment = require('moment');
 const NewsModel = require('../../model/newsModel');
+const AnalysisModel = require('../../model/analysisModel');
+const GoogleSearchModel = require('../../model/google-search-model');
 
 
 const newsType = new GraphQLObjectType({
@@ -65,30 +67,37 @@ const newschema = new GraphQLSchema({
             type: GraphQLInt,
           },
         },
-        resolve: (root, { id, createdAt = new Date(), limit = 50 }) => {
-          const newsFound = new Promise((resolve, reject) => {
-            const query = {};
-            if (id) {
-              query._id = id;
-            }
+        resolve: async (root, { id: newsId, createdAt = new Date(), limit = 50 }) => {
+          const query = {};
+          if (createdAt) {
+            query.createdAt = {
+              $gte: new Date(moment(createdAt).startOf('day').toJSON()),
+              $lt: new Date(moment(createdAt).endOf('day').toJSON()),
+            };
+          }
 
-            if (createdAt) {
-              query.createdAt = {
-                $gte: new Date(moment(createdAt).startOf('day').toJSON()),
-                $lt: new Date(moment(createdAt).endOf('day').toJSON()),
-              };
-            }
+          if (newsId) {
+            query._id = newsId;
 
-            NewsModel
-              .find(query, (error, news) => {
-                if (error) {
-                  return reject(error);
-                }
-                return resolve(news);
-              })
-              .sort('-createdAt')
-              .limit(limit);
-          });
+            const analysis = await AnalysisModel.find({
+              newsId,
+            });
+
+            const googleSearchs = await GoogleSearchModel.find({
+              newsId,
+            });
+            console.log('analysis', analysis);
+          }
+
+          const newsFound = await NewsModel
+            .find(query, (error, news) => {
+              if (error) {
+                return [];
+              }
+              return news;
+            })
+            .sort('-createdAt')
+            .limit(limit);
 
           return newsFound;
         },

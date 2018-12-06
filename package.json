@@ -4,9 +4,8 @@
   "main": "./dist/routes.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon dist/server",
-    "start": "node ./dist/server",
-    "docker:build": "npm run build && docker build -t garciadiazjaime/api-news .",
+    "start": "node ./src/server",
+    "docker:build": "docker build -t garciadiazjaime/api-news .",
     "docker:run": "docker run -d -p 49330:3030 --name news garciadiazjaime/api-news",
     "docker:push": "docker push garciadiazjaime/api-news",
     "docker:pull": "docker pull garciadiazjaime/api-news"
