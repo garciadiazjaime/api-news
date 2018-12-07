@@ -74,8 +74,14 @@ const newschema = new GraphQLSchema({
             name: 'limit',
             type: GraphQLInt,
           },
+          state: {
+            name: 'state',
+            type: GraphQLString,
+          },
         },
-        resolve: async (root, { id: newsId, createdAt = new Date(), limit = 50 }) => {
+        resolve: async (root, {
+          id: newsId, createdAt = new Date(), limit = 50, state,
+        }) => {
           const query = {};
           if (createdAt) {
             query.createdAt = {
@@ -105,6 +111,11 @@ const newschema = new GraphQLSchema({
             }];
 
             return response;
+          }
+
+          if (state && state.toUpperCase() === 'ANALYSIS') {
+            delete query.createdAt;
+            limit = 100;
           }
 
           const newsFound = await NewsModel

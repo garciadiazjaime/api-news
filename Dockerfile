@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:carbon
 
 ADD package.json /tmp/package.json
 
@@ -10,8 +10,6 @@ WORKDIR /usr/src/app
 
 ADD . /usr/src/app
 
-RUN npm run build
-
 EXPOSE 3030
 
-CMD [ "node", "./dist/server.js" ]
+CMD [ "node", "./src/server.js" ]

@@ -59,32 +59,25 @@ const GoogleResultsSchema = new GraphQLSchema({
             type: GraphQLString,
           },
         },
-        resolve: (root, { createdAt, limit = 50, newsId }) => {
-          const analysisFound = new Promise((resolve, reject) => {
-            const query = {};
+        resolve: async (root, { createdAt, limit = 50, newsId }) => {
+          const query = {};
 
-            if (newsId) {
-              query.newsId = newsId;
-            }
+          if (newsId) {
+            query.newsId = newsId;
+          }
 
-            if (createdAt) {
-              const date = createdAt ? new Date(createdAt) : new Date();
-              query.createdAt = {
-                $gte: moment(date).startOf('day'),
-                $lt: moment(date).endOf('day'),
-              };
-            }
+          if (createdAt) {
+            const date = createdAt ? new Date(createdAt) : new Date();
+            query.createdAt = {
+              $gte: moment(date).startOf('day'),
+              $lt: moment(date).endOf('day'),
+            };
+          }
 
-            GoogleResultsModel
-              .find(query, (error, analysis) => {
-                if (error) {
-                  return reject(error);
-                }
-                return resolve(analysis);
-              })
-              .sort('-createdAt')
-              .limit(limit);
-          });
+          const analysisFound = GoogleResultsModel
+            .find(query)
+            .sort('-createdAt')
+            .limit(limit);
 
           return analysisFound;
         },
