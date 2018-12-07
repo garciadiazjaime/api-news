@@ -93,6 +93,7 @@ const newschema = new GraphQLSchema({
 
           if (newsId) {
             query._id = newsId;
+            delete query.createdAt;
 
             const { _doc: news } = await NewsModel.findOne(query);
 
